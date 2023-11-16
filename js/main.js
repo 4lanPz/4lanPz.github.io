@@ -132,29 +132,37 @@
 
    /* accordion
     * ------------------------------------------------------ */
-    const ssAccordion = function() {
+   const ssAccordion = function() {
+    const $allItems = $('.services-list__item');
+    const $allPanels = $allItems.children('.services-list__item-body');
 
-        const $allItems = $('.services-list__item');
-        const $allPanels = $allItems.children('.services-list__item-body');
+    // Ocultar todos los paneles inicialmente
+    $allPanels.hide();
 
-        $allPanels.slice(1).hide();
+    $allItems.on('click', '.services-list__item-header', function() {
+        const $this = $(this),
+            $curItem = $this.parent(),
+            $curPanel = $this.next();
 
-        $allItems.on('click', '.services-list__item-header', function() {
+        // Verificar si el panel actual está visible
+        const isOpen = $curPanel.is(':visible');
 
-            const $this = $(this),
-                  $curItem = $this.parent(),
-                  $curPanel =  $this.next();
+        // Ocultar todos los paneles
+        $allPanels.slideUp();
 
-            if(!$curItem.hasClass('is-active')){
-                $allPanels.slideUp();
-                $curPanel.slideDown();
-                $allItems.removeClass('is-active');
-                $curItem.addClass('is-active');
-            }
-            
-            return false;
-        });
-    };
+        // Si el panel no estaba abierto previamente, mostrarlo
+        if (!isOpen) {
+            $curPanel.slideDown();
+            $allItems.removeClass('is-active');
+            $curItem.addClass('is-active');
+        } else {
+            // Si el panel estaba abierto, cerrarlo
+            $curItem.removeClass('is-active');
+        }
+
+        return false;
+    });
+};
 
 
 

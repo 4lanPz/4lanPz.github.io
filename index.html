@@ -43,7 +43,7 @@
                 </ul>
             </nav> <!-- end header-nav-wrap -->
 
-            <a href="#0" class="btn btn--stroke btn--small">Descargar CV</a>
+            <a href="#" onclick="descargarCV()" class="btn btn--stroke btn--small">Descargar CV</a>
 
         </div> <!-- end header-content -->
 
@@ -227,21 +227,21 @@
                                 <div class="skill">
                                     <div class="skill-name">Java</div>
                                     <div class="skill-bar">
-                                        <div class="skill-per" per="60" style="max-width:60%"></div>
+                                        <div class="skill-per" per="50" style="max-width:50%"></div>
                                     </div>
                                 </div> 
 
                                 <div class="skill">
                                     <div class="skill-name">Python</div>
                                     <div class="skill-bar">
-                                        <div class="skill-per" per="70" style="max-width:70%"></div>
+                                        <div class="skill-per" per="60" style="max-width:60%"></div>
                                     </div>
                                 </div>
 
                                 <div class="skill">
                                     <div class="skill-name">C++</div>
                                     <div class="skill-bar">
-                                        <div class="skill-per" per="50" style="max-width:50%"></div>
+                                        <div class="skill-per" per="40" style="max-width:40%"></div>
                                     </div>
                                 </div>
 
@@ -255,7 +255,7 @@
                                 <div class="skill">
                                     <div class="skill-name">HTML</div>
                                     <div class="skill-bar">
-                                        <div class="skill-per" per="50" style="max-width:50%"></div>
+                                        <div class="skill-per" per="70" style="max-width:70%"></div>
                                     </div>
                                 </div>
 
@@ -269,14 +269,14 @@
                                 <div class="skill">
                                     <div class="skill-name">Adobe Premiere</div>
                                     <div class="skill-bar">
-                                        <div class="skill-per" per="70" style="max-width:70%"></div>
+                                        <div class="skill-per" per="60" style="max-width:60%"></div>
                                     </div>
                                 </div>
 
                                 <div class="skill">
                                     <div class="skill-name">Adobe Photoshop</div>
                                     <div class="skill-bar">
-                                        <div class="skill-per" per="70" style="max-width:70%"></div>
+                                        <div class="skill-per" per="50" style="max-width:50%"></div>
                                     </div>
                                 </div>
                                     <br><br>
@@ -363,7 +363,7 @@
                     <h3 class="subhead">Contáctame</h3>
 
                     <h1 class="display-1">
-                    Contratemos la actitud y entrenemos las habilidades
+                    Contratemos la actitud y entrenemos las habilidades.
                     </h1>
                 </div>
 
@@ -387,7 +387,7 @@
                             Teléfono
                         </h5>
                         <p class="footer-contact-block__content">
-                            <a href="tel:+1975432345">+593 978692138</a>
+                            <a href="tel:+593978692138">+593 978692138</a>
                         </p>
                     </div> <!-- end footer-contact-block -->
                     <br>
@@ -466,5 +466,27 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-
+    <script>
+        function descargarCV() {
+          // URL de tu archivo en el repositorio de GitHub
+          var url = 'https://github.com/4lanPz/Portafolio/raw/52eb912fd58a002dc4c12ecc81169b841927d3b6/cv/Curriculum.pdf';
+    
+          // Nombre que se usará para guardar el archivo localmente
+          var nombreArchivo = 'Curriculum_Alan-Perez.pdf';
+    
+          // Crear un elemento de ancla oculto
+          var link = document.createElement('a');
+          link.href = url;
+          link.download = nombreArchivo;
+    
+          // Agregar el enlace al DOM
+          document.body.appendChild(link);
+    
+          // Simular el clic en el enlace para iniciar la descarga
+          link.click();
+    
+          // Eliminar el enlace del DOM después de la descarga
+          document.body.removeChild(link);
+        }
+      </script>
 </body>
