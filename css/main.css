@@ -1739,7 +1739,7 @@ input::-moz-focus-inner {
 
 .header-nav a {
   font-size: 1.7rem;
-  color: rgba(255, 255, 255, 0.699);
+  color: rgba(255, 255, 255, 0.852);
 }
 
 .header-nav a:hover,
@@ -1849,7 +1849,7 @@ input::-moz-focus-inner {
   color: #ffffff;
   margin: 0;
   padding: 0 4rem;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
   position: absolute;
@@ -2119,7 +2119,7 @@ input::-moz-focus-inner {
 
 .hero-social li::after {
   content: '/';
-  color: rgba(255, 255, 255, 0.1);
+  color: rgb(81, 81, 81);
   margin-left: 0rem;
   margin-right: 1rem;
 }
@@ -2467,8 +2467,8 @@ html.no-csstransitions .hero-content {
 }
 
 .s-about__section--profile {
-  padding-top: 28rem;
-  padding-bottom: 4rem;
+  padding-top: 15rem;
+  padding-bottom: 0rem;
   min-height: 108rem;
   position: relative;
 }
@@ -2623,8 +2623,8 @@ html.no-csstransitions .hero-content {
  *
  * ------------------------------------------------------------------- */
 .s-services {
-  padding-top: 24rem;
-  padding-bottom: 20rem;
+  padding-top: 15rem;
+  padding-bottom: 10rem;
   background-color: #1d1b37;
   position: relative;
 }
@@ -3129,8 +3129,8 @@ html.no-csstransitions .hero-content {
  *
  * ------------------------------------------------------------------- */
 .s-footer {
-  padding-top: 24rem;
-  padding-bottom: 8rem;
+  padding-top: 15rem;
+  padding-bottom: 1rem;
   background-color: #ffffff;
   position: relative;
 }
@@ -3153,7 +3153,7 @@ html.no-csstransitions .hero-content {
 }
 
 .s-footer .footer-contacts {
-  margin-top: 7.2rem;
+  margin-top: 4rem;
   margin-left: 8.33333%;
 }
 
