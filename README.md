@@ -11,3 +11,8 @@
 - Cambios en contenido de contactos
 - Cambios en espacios entre secciones
 - Cambios en contenidos de texto de secciones
+
+
+### Actualizado 19-07-2024
+- Actualización datos
+- Actualización temporal
