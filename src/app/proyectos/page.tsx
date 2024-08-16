@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../Components/card";
 import { Navigation } from "../Components/nav";
-import { Github } from "lucide-react";
 import Link from "next/link";
 
 interface Project {
@@ -22,14 +21,27 @@ export default function ProjectsPage() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const response = await fetch("/api/projects");
+        // Usa fetch para obtener la lista de archivos JSON
+        const response = await fetch("/proyectos");
         if (!response.ok) {
-          throw new Error("Error al cargar los proyectos");
+          throw new Error("Error al cargar los archivos de proyectos");
         }
-        const data = await response.json();
-        setProjects(data);
+
+        const projectFiles = await response.json();
+        
+        // Cargar cada archivo JSON individualmente
+        const projectPromises = projectFiles.map(async (filename: string) => {
+          const projectResponse = await fetch(`/proyectos/${filename}`);
+          if (!projectResponse.ok) {
+            throw new Error(`Error al cargar el proyecto ${filename}`);
+          }
+          return projectResponse.json();
+        });
+
+        const projectsData = await Promise.all(projectPromises);
+        setProjects(projectsData);
       } catch (error) {
-        setError((error as Error).message);
+        setError("Error al cargar los proyectos");
       } finally {
         setLoading(false);
       }
@@ -55,8 +67,7 @@ export default function ProjectsPage() {
             Proyectos
           </h2>
           <p className="mt-4 text-zinc-400">
-            Algunos de los proyectos hechos en mis estudios y en mi tiempo
-            libre.
+            Algunos de los proyectos hechos en mis estudios y en mi tiempo libre.
           </p>
           <div className="w-full h-px bg-zinc-800 mt-8 mb-2" />
 
