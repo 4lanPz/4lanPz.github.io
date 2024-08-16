@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { Card } from "../Components/card";
 import { Navigation } from "../Components/nav";
@@ -22,13 +23,13 @@ export default function ProjectsPage() {
     async function fetchProjects() {
       try {
         // Usa fetch para obtener la lista de archivos JSON
-        const response = await fetch("/proyectos");
+        const response = await fetch("/proyectos/projects.json"); // Cambiado para usar projects.json
         if (!response.ok) {
           throw new Error("Error al cargar los archivos de proyectos");
         }
 
-        const projectFiles = await response.json();
-        
+        const projectFiles: string[] = await response.json();
+
         // Cargar cada archivo JSON individualmente
         const projectPromises = projectFiles.map(async (filename: string) => {
           const projectResponse = await fetch(`/proyectos/${filename}`);
@@ -41,6 +42,7 @@ export default function ProjectsPage() {
         const projectsData = await Promise.all(projectPromises);
         setProjects(projectsData);
       } catch (error) {
+        console.error(error); // Agrega un console.error para más detalles del error
         setError("Error al cargar los proyectos");
       } finally {
         setLoading(false);
@@ -86,7 +88,7 @@ export default function ProjectsPage() {
               <p className="mt-4 text-zinc-400 text-sm justify-center text-center">
                 Clic para ir al repositorio
               </p>
-              <div className="grid w-4/5 grid-cols-2 gap-4 mx-auto px-10">
+              <div className="grid w-4/5 grid-cols-2 gap-4 mx-auto px-10 max-md:px-0">
                 {!loading &&
                   !error &&
                   sortedProjects.map((project) => (
