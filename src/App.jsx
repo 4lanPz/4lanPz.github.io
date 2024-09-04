@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Inicio from "./paginas/Inicio";
 import Informacion from "./paginas/Informacion";
 import Contacto from "./paginas/Contacto";
-import Proyectos from "./paginas/proyectos";
 import Conocimientos from "./paginas/Conocimientos";
+import Proyectos from "./paginas/proyectos";
 
 function App() {
   return (
