@@ -1,6 +1,7 @@
-"use client";
-import { Card } from "../Components/card";
-import { Navigation } from "../Components/nav";
+import React from "react";
+import { Cartas } from "../layout/Cartas";
+import { Navegacion } from "../layout/Navegacion";
+import Particulas from "../layout/Particulas";
 
 const conocimiento1 = [
   {
@@ -32,12 +33,12 @@ const conocimiento2 = [
       { habilidad: "Wordershare Filmora", nivel: 40 },
       { habilidad: "Nero video", nivel: 40 },
       { habilidad: "Unreal Engine", nivel: 40 },
-      { habilidad: "Goto Engine", nivel: 20 },
+      { habilidad: "Gotot Engine", nivel: 20 },
     ],
   },
 ];
 
-const SkillBar = ({ nivel }: { nivel: number }) => (
+const SkillBar = ({ nivel }) => (
   <div className="w-full bg-gray-300 rounded-full h-2.5 mt-1">
     <div
       className="bg-zinc-700 h-2.5 rounded-full shadow-sm shadow-white"
@@ -46,20 +47,26 @@ const SkillBar = ({ nivel }: { nivel: number }) => (
   </div>
 );
 
-export default function Habilidades() {
+export default function Conocimientos() {
   return (
-    <div className="bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
-      <Navigation />
-      <div className="container flex flex-col items-center justify-center min-h-screen px-4 mx-auto">
-
-        <div className="w-full max-w-3xl p-6">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-            Conocimientos
+    <div className="bg-gradient-to-tl from-black via-zinc-800 to-black relative overflow-hidden min-h-screen">
+      <div className="absolute inset-0 z-0">
+        <Particulas
+          quantity={100}
+          className="w-full h-full bg-black opacity-50"
+        />
+      </div>
+      
+      <Navegacion />
+      <div className="container flex flex-col items-center justify-center min-h-screen px-4 mx-auto relative">
+        <div className="w-full max-w-3xl p-6 mt-10 md:mt-12 xl:mt-12">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl text-center">
+            Mis Conocimientos
           </h2>
           <div className="w-full h-px bg-zinc-800 my-8" />
-          <div className="grid w-full grid-cols-2 gap-4">
+          <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-4">
             {conocimiento1.map((data, index) => (
-              <Card key={`conocimiento1-${index}`}>
+              <Cartas key={`conocimiento1-${index}`}>
                 <div className="p-4 relative flex flex-col items-start gap-4">
                   <h3 className="text-xl font-bold text-zinc-100">
                     {data.title}
@@ -74,10 +81,10 @@ export default function Habilidades() {
                     ))}
                   </ul>
                 </div>
-              </Card>
+              </Cartas>
             ))}
             {conocimiento2.map((data, index) => (
-              <Card key={`conocimiento2-${index}`}>
+              <Cartas key={`conocimiento2-${index}`}>
                 <div className="p-4 relative flex flex-col items-start gap-4">
                   <h3 className="text-xl font-bold text-zinc-100">
                     {data.title}
@@ -92,7 +99,7 @@ export default function Habilidades() {
                     ))}
                   </ul>
                 </div>
-              </Card>
+              </Cartas>
             ))}
           </div>
         </div>
