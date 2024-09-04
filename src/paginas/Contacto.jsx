@@ -42,13 +42,13 @@ export default function Contacto() {
           </h2>
           <div className="w-full h-px bg-zinc-800 my-8" />
 
-          <div className="grid w-full grid-cols-1 gap-4 mx-auto mt-10 md:mt-12 xl:mt-12 sm:grid-cols-3 lg:gap-16 lg:grid-cols-3">
+          <div className="grid w-full grid-cols-1 gap-4 mx-auto mt-10 md:mt-12 xl:mt-12 sm:grid-cols-3 xl:gap-4 xl:grid-cols-3">
             {redes.map((s) => (
               <Cartas key={s.href}>
                 <Link
                   to={s.href}
                   target="_blank"
-                  className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 lg:pb-48 md:p-16"
+                  className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-4 md:py-24 xl:pb-32 md:p-16"
                 >
                   <span
                     className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"

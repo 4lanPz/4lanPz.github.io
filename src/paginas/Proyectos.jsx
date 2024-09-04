@@ -1,117 +1,137 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Cartas } from "../layout/Cartas";
+import { Navegacion } from "../layout/Navegacion";
+import { Link } from "react-router-dom";
+import Particulas from "../layout/Particulas";
 
-const Particulas = ({ className = "", quantity = 50 }) => {
-  const canvasRef = useRef(null);
-  const particlesRef = useRef([]);
-  const mousePosRef = useRef({ x: 0, y: 0 });
-  const deceleration = 0.98; // Factor de desaceleración (0.98 significa una desaceleración del 2% por cuadro)
+export default function Proyectos() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-
-    // Determina si el dispositivo es móvil o no
-    const isMobile = window.innerWidth <= 768;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particlesRef.current = createParticles(quantity);
-    };
-
-    const updateParticles = () => {
-      const { x: mouseX, y: mouseY } = mousePosRef.current;
-      const canvasRect = canvas.getBoundingClientRect();
-
-      particlesRef.current.forEach((particle) => {
-        // Aplicar desaceleración
-        particle.vx *= deceleration;
-        particle.vy *= deceleration;
-
-        // Actualizar posición de la partícula
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        // Envolver las partículas al salir del borde
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.y > canvas.height) particle.y = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-
-        if (!isMobile) {
-          // Calcular la distancia y la influencia del mouse solo si no es móvil
-          const dx = particle.x - (mouseX - canvasRect.left);
-          const dy = particle.y - (mouseY - canvasRect.top);
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxDistance = 100;
-          const influence = Math.max(0, (maxDistance - dist) / maxDistance);
-          const force = influence * 0.2;
-
-          // Aplicar la fuerza de alejamiento
-          if (dist > 0) {
-            particle.vx += (force * (dx / dist));
-            particle.vy += (force * (dy / dist));
-          }
+    async function fetchProjects() {
+      try {
+        // Obtener lista de JSON
+        const response = await fetch("/proyectos/projects.json");
+        if (!response.ok) {
+          throw new Error("Error al cargar los archivos de proyectos");
         }
-      });
-    };
 
-    const drawParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesRef.current.forEach((particle) => {
-        // Dibujar la partícula
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${particle.alpha})`;
-        ctx.fill();
-      });
-    };
+        const projectFiles = await response.json();
 
-    const animateParticles = () => {
-      updateParticles();
-      drawParticles();
-      requestAnimationFrame(animateParticles);
-    };
+        // Cargar JSON individualmente
+        const projectPromises = projectFiles.map(async (filename) => {
+          const projectResponse = await fetch(`/proyectos/${filename}`);
+          if (!projectResponse.ok) {
+            throw new Error(`Error al cargar el proyecto ${filename}`);
+          }
+          return projectResponse.json();
+        });
 
-    const handleMouseMove = (event) => {
-      if (!isMobile) {
-        mousePosRef.current = { x: event.clientX, y: event.clientY };
+        const projectsData = await Promise.all(projectPromises);
+        setProjects(projectsData);
+      } catch (error) {
+        console.error(error);
+        setError("Error al cargar los proyectos");
+      } finally {
+        setLoading(false);
       }
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    if (!isMobile) {
-      window.addEventListener("mousemove", handleMouseMove);
     }
 
-    animateParticles();
+    fetchProjects();
+  }, []);
 
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-      if (!isMobile) {
-        window.removeEventListener("mousemove", handleMouseMove);
-      }
-    };
-  }, [quantity]);
+  const sortedProjects = projects
+    .filter((project) => project.published)
+    .sort(
+      (a, b) =>
+        new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
+        new Date(a.date ?? Number.POSITIVE_INFINITY).getTime()
+    );
 
-  const createParticles = (numParticles) => {
-    const particlesArray = [];
-    for (let i = 0; i < numParticles; i++) {
-      particlesArray.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * (Math.random() * 0.1), // Velocidad ajustada para más movimiento
-        vy: (Math.random() - 0.5) * (Math.random() * 0.1),
-        size: Math.random() * 2 + 0.5,
-        alpha: Math.random() * 0.5 + 0.5,
-      });
-    }
-    return particlesArray;
-  };
+  return (
+    <div className="bg-gradient-to-tl from-black via-zinc-800 to-black relative overflow-hidden min-h-screen">
+      <div className="absolute inset-0 z-0">
+        <Particulas
+          quantity={100}
+          className="w-full h-full bg-black opacity-50"
+        />
+      </div>
+      <Navegacion />
+      <div className="relative">
+        <div className="container flex items-center justify-center pt-10 md:pt-20 xl:pt-20 min-h-screen mx-auto">
+          <div className="w-full">
+            <h2 className="text-3xl font-bold tracking-tight text-zinc-100 mt-8 m sm:text-4xl text-center">
+              Proyectos
+            </h2>
+            <p className="mt-4 text-zinc-400 text-center px-2">
+              Algunos de los proyectos hechos en mis estudios y en mi tiempo
+              libre.
+            </p>
+            <div className="w-full h-px bg-zinc-800 mt-8 md:px-20 xl:px-24" />
 
-  return <canvas ref={canvasRef} className={`absolute inset-0 ${className}`} />;
-};
-
-export default Particulas;
+            <div className="flex flex-col space-y-3 mb-10">
+              {loading && (
+                <div className="text-center p-4 min-h-screen">
+                  <p className="text-lg text-zinc-400">Cargando proyectos...</p>
+                </div>
+              )}
+              {error && (
+                <div className="text-center p-4">
+                  <p className="text-lg text-red-500">{error}</p>
+                </div>
+              )}
+              <p className="mt-4 text-zinc-400 text-sm justify-center text-center">
+                Clic para ir al repositorio
+              </p>
+              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 px-8 md:px-32 xl:px-60">
+                {!loading &&
+                  !error &&
+                  sortedProjects.map((project, index) => (
+                    <Cartas key={project.slug || index}>
+                      {" "}
+                      <Link
+                        href={
+                          project.repository
+                            ? project.repository.startsWith("http")
+                              ? project.repository
+                              : `https://${project.repository}`
+                            : "#"
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-row items-center w-full h-full"
+                      >
+                        <div className="flex-1 p-4">
+                          <h2 className="text-xl font-bold text-zinc-100 mb-2">
+                            {project.title}
+                          </h2>
+                          <p className="text-sm text-zinc-400">
+                            {project.description}
+                          </p>
+                          <span className="text-xs text-zinc-500 mt-2">
+                            {project.date ? (
+                              <time
+                                dateTime={new Date(project.date).toISOString()}
+                              >
+                                {Intl.DateTimeFormat(undefined, {
+                                  dateStyle: "medium",
+                                }).format(new Date(project.date))}
+                              </time>
+                            ) : (
+                              <span>Fecha no disponible</span>
+                            )}
+                          </span>
+                        </div>
+                      </Link>
+                    </Cartas>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
