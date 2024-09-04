@@ -59,75 +59,67 @@ export default function Proyecto() {
         />
       </div>
       <Navegacion />
-      <div className="relative">
-        <div className="container flex items-center justify-center pt-10 md:pt-20 xl:pt-20 min-h-screen mx-auto">
-          <div className="w-full">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-100 mt-8 m sm:text-4xl text-center">
-              Proyectos
-            </h2>
-            <p className="mt-4 text-zinc-400 text-center px-2">
-              Algunos de los proyectos hechos en mis estudios y en mi tiempo
-              libre.
-            </p>
-            <div className="w-full h-px bg-zinc-800 mt-8 md:px-20 xl:px-24" />
+      <div className="container flex items-center justify-center min-h-screen px-4 mx-auto">
+        <div className="w-full p-6 mt-10 md:mt-0 xl:mt-0 relative">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl text-center">
+            Mis Proyectos
+          </h2>
+          <p className="mt-4 text-zinc-400 text-center px-2">
+            Algunos de los proyectos hechos en mis estudios y en mi tiempo
+            libre.
+          </p>
+          <div className="w-full h-px bg-zinc-800 my-6" />
 
-            <div className="flex flex-col space-y-3 mb-10">
-              {loading && (
-                <div className="text-center p-4 min-h-screen">
-                  <p className="text-lg text-zinc-400">Cargando proyectos...</p>
-                </div>
-              )}
-              {error && (
-                <div className="text-center p-4">
-                  <p className="text-lg text-red-500">{error}</p>
-                </div>
-              )}
-              <p className="mt-4 text-zinc-400 text-sm justify-center text-center">
-                Clic para ir al repositorio
-              </p>
-              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 px-8 md:px-32 xl:px-60">
-                {!loading &&
-                  !error &&
-                  sortedProjects.map((project, index) => (
-                    <Cartas key={project.slug || index}>
-                      {" "}
-                      <Link
-                        href={
-                          project.repository
-                            ? project.repository.startsWith("http")
-                              ? project.repository
-                              : `https://${project.repository}`
-                            : "#"
-                        }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex flex-row items-center w-full h-full"
-                      >
-                        <div className="flex-1 p-4">
-                          <h2 className="text-xl font-bold text-zinc-100 mb-2">
-                            {project.title}
-                          </h2>
-                          <p className="text-sm text-zinc-400">
-                            {project.description}
-                          </p>
-                          <span className="text-xs text-zinc-500 mt-2">
-                            {project.date ? (
-                              <time
-                                dateTime={new Date(project.date).toISOString()}
-                              >
-                                {Intl.DateTimeFormat(undefined, {
-                                  dateStyle: "medium",
-                                }).format(new Date(project.date))}
-                              </time>
-                            ) : (
-                              <span>Fecha no disponible</span>
-                            )}
-                          </span>
-                        </div>
-                      </Link>
-                    </Cartas>
-                  ))}
+          <div className="flex flex-col space-y-3 mb-10">
+            {loading && (
+              <div className="text-center p-4 min-h-screen">
+                <p className="text-lg text-zinc-400">Cargando proyectos...</p>
               </div>
+            )}
+            {error && (
+              <div className="text-center p-4">
+                <p className="text-lg text-red-500">{error}</p>
+              </div>
+            )}
+            <p className="text-zinc-400 text-sm justify-center text-center">
+              Clic para ir al repositorio
+            </p>
+            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 px-8 md:px-32 xl:px-72">
+              {!loading &&
+                !error &&
+                sortedProjects.map((project, index) => (
+                  <Cartas key={project.slug || index}>
+                    {" "}
+                    <Link
+                      to={project.repository}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-row items-center w-full h-full"
+                    >
+                      <div className="flex-1 p-4">
+                        <h2 className="text-xl font-bold text-zinc-100 mb-2">
+                          {project.title}
+                        </h2>
+                        <p className="text-sm text-zinc-400">
+                          {project.description}
+                        </p>
+                        <span className="text-xs text-zinc-500 mt-2">
+                          {project.date ? (
+                            <time
+                              dateTime={new Date(project.date).toISOString()}
+                            >
+                              {Intl.DateTimeFormat(undefined, {
+                                dateStyle: "medium",
+                              }).format(new Date(project.date))}
+                            </time>
+                          ) : (
+                            <span>Fecha no disponible</span>
+                          )}
+                        </span>
+                      </div>
+                    </Link>
+                  </Cartas>
+                ))}
             </div>
           </div>
         </div>

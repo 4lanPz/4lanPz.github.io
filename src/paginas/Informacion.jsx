@@ -38,7 +38,7 @@ export default function Informacion() {
       </div>
       <Navegacion className="relative z-10" />
 
-      <div className="relative z-10 px-6 pt-10 md:pt-20 xl:pt-20 mx-auto w-full items-center justify-center">
+      <div className="relative z-10 px-6 pt-10 md:pt-10 xl:pt-20 mx-auto w-full items-center justify-center">
         <div className="text-center md:px-20 xl:px-24">
           <h2 className="text-4xl font-bold text-zinc-100 mt-10 mb-2">
             Alan Pérez
@@ -62,7 +62,7 @@ export default function Informacion() {
                     <h3 className="text-xl md:text-2xl xl:text-xl font-bold text-white">
                       {skill.title}
                     </h3>
-                    <p className="text-xs sm:text-lg text-white">
+                    <p className="text-sm sm:text-lg text-white">
                       {skill.description}
                     </p>
                   </div>

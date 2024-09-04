@@ -36,19 +36,19 @@ export default function Contacto() {
       </div>
       <Navegacion />
       <div className="container flex items-center justify-center min-h-screen px-4 mx-auto ">
-        <div className="w-full max-w-3xl p-6 mt-10 md:mt-12 xl:mt-12 relative">
+        <div className="w-full p-6 mt-10 md:mt-0 xl:mt-0 relative">
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl text-center">
             Formas de Contacto
           </h2>
           <div className="w-full h-px bg-zinc-800 my-8" />
 
-          <div className="grid w-full grid-cols-1 gap-4 mx-auto mt-10 md:mt-12 xl:mt-12 sm:grid-cols-3 xl:gap-4 xl:grid-cols-3">
+          <div className="grid w-full grid-cols-1 gap-4 mt-10 md:mt-12 xl:mt-12   md:grid-cols-3 xl:grid-cols-3 xl:px-60 ">
             {redes.map((s) => (
               <Cartas key={s.href}>
                 <Link
                   to={s.href}
                   target="_blank"
-                  className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-4 md:py-24 xl:pb-32 md:p-16"
+                  className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 lg:pb-48 md:p-16"
                 >
                   <span
                     className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"
