@@ -4,7 +4,7 @@ import { Navegacion } from "../layout/Navegacion";
 import { Link } from "react-router-dom";
 import Particulas from "../layout/Particulas";
 
-export default function Proyectos() {
+export default function Proyecto() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

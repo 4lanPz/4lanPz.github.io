@@ -4,7 +4,7 @@ import Inicio from "./paginas/Inicio";
 import Informacion from "./paginas/Informacion";
 import Contacto from "./paginas/Contacto";
 import Conocimientos from "./paginas/Conocimientos";
-import Proyectos from "./paginas/proyectos";
+import Proyecto from "./paginas/Proyecto";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           
           <Route path="/informacion" element={<Informacion />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/proyectos" element={<Proyectos />} />
+          <Route path="/proyectos" element={<Proyecto />} />
           <Route path="/conocimientos" element={<Conocimientos />} />
         </Routes>
       </BrowserRouter>
